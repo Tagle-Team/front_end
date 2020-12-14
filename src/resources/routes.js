@@ -1,5 +1,6 @@
 const routes = {
   root: '/',
+  tag: '/tag',
   signup: '/signup',
   signin: '/signin',
 };
