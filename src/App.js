@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { theme } from './constants/GlobalUITheme';
 
 import routes from 'resources/routes';
 
@@ -9,12 +11,14 @@ import ElevateAppBar from "./components/organisms/Navigation";
 
 function App() {
   return (
-    <Router>
-      <Route exact path={routes.root} render={() => 'root'} />
-      <Route exact path={routes.tag} render={() => <ElevateAppBar><Tag /></ElevateAppBar>} />
-      <Route exact path={routes.signup} component={SignUp} />
-      <Route exact path={routes.signin} render={() => 'sign in'} />
-    </Router>
+    <MuiThemeProvider theme={theme}>
+      <Router>
+        <Route exact path={routes.root} render={() => 'root'} />
+        <Route exact path={routes.tag} render={() => <ElevateAppBar><Tag /></ElevateAppBar>} />
+        <Route exact path={routes.signup} component={SignUp} />
+        <Route exact path={routes.signin} render={() => 'sign in'} />
+      </Router>
+    </MuiThemeProvider>
   );
 }
 
