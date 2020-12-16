@@ -4,10 +4,11 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import deepPurple from '@material-ui/core/colors/deepPurple';
 import blue from '@material-ui/core/colors/blue';
+import logo from 'images/tagle-logo.png';
 
 const useStyles = makeStyles((theme) => ({
   background: {
-    background: `linear-gradient(90deg, ${deepPurple[800]} 9%, ${blue[500]} 93%)`,
+    // background: `linear-gradient(90deg, ${deepPurple[800]} 9%, ${blue[500]} 93%)`,
   },
   title: {
     fontWeight: 400,
@@ -20,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
     padding: '60px 50px 90px',
     marginBottom: '50px',
     borderRadius: '10px',
-    boxShadow: '14px 18px 5px 0px rgba(0,0,0,0.3)',
+    boxShadow: `0 20px 40px 0 rgba(0,0,0,.15)`,
+    zIndex: 10,
   },
   root: {
     height: '100vh',
@@ -34,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
       marginTop: '15px',
     },
   },
+  logo: {
+    position: 'fixed',
+    width: '15%',
+  },
 }));
 
 function Form({ title, children }) {
@@ -41,6 +47,7 @@ function Form({ title, children }) {
 
   return (
     <div className={classes.background}>
+      <img src={logo} alt="logo" className={classes.logo} />
       <Container maxWidth="sm" classes={{ root: classes.root }}>
         <div className={classes.inner}>
           <Typography

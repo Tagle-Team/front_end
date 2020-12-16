@@ -9,7 +9,7 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
-import logo from './images/tagle-logo.png';
+import logo from 'images/tagle-logo.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
