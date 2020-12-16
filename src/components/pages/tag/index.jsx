@@ -7,7 +7,7 @@ import deepPurple from '@material-ui/core/colors/deepPurple';
 import blue from '@material-ui/core/colors/blue';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import ElevateAppBar from "../../organisms/Navigation";
+import ElevateAppBar from 'components/UI/organisms/Navigation';
 
 const useStyles = makeStyles((theme) => ({
   inner: {
@@ -37,14 +37,9 @@ const useStyles = makeStyles((theme) => ({
 function Tag() {
   const classes = useStyles();
   const history = useHistory();
-  const [error, setError] = useState({
-  });
+  const [error, setError] = useState({});
 
-  return (
-    <React.Fragment>
-      Tag
-    </React.Fragment>
-  );
+  return <React.Fragment>Tag</React.Fragment>;
 }
 
 export default Tag;
