@@ -7,9 +7,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
-import {makeStyles} from "@material-ui/core/styles";
-import {Button} from "@material-ui/core";
-import logo from './images/tagle-logo.png'
+import { makeStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
+import logo from './images/tagle-logo.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,20 +20,20 @@ const useStyles = makeStyles((theme) => ({
     color: '#3E3E3E',
     fontFamily: 'Noto Sans',
     fontWeight: 900,
-    letterSpacing: 1.2
+    letterSpacing: 1.2,
   },
   toolbar: {
-    padding: '0 50px'
+    padding: '0 50px',
   },
   toolbarButtons: {
     flexGrow: 1,
   },
   toolbarUser: {
-    marginLeft: 'auto'
+    marginLeft: 'auto',
   },
   logo: {
-    maxWidth: "40px",
-    marginRight: '8px'
+    maxWidth: '40px',
+    marginRight: '8px',
   },
 }));
 
@@ -67,10 +67,12 @@ export default function ElevateAppBar(props) {
     <React.Fragment>
       <CssBaseline />
       <ElevationScroll {...props}>
-        <AppBar position='static' color='primary'>
+        <AppBar position="static" color="transparent">
           <Toolbar className={classes.toolbar}>
             <img src={logo} alt="logo" className={classes.logo} />
-            <Typography className={classes.title} variant="h6">tagle</Typography>
+            <Typography className={classes.title} variant="h6">
+              tagle
+            </Typography>
             <div className={classes.toolbarButtons}>
               <Button color="inherit">홈</Button>
               <Button color="inherit">소개</Button>
@@ -85,11 +87,7 @@ export default function ElevateAppBar(props) {
         </AppBar>
       </ElevationScroll>
       <Toolbar />
-      <Container>
-        {
-          props.children
-        }
-      </Container>
+      <Container>{props.children}</Container>
     </React.Fragment>
   );
 }
