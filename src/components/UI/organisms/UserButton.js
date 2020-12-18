@@ -38,7 +38,7 @@ function UserButton() {
   }));
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
-  console.log(user);
+
   const handleClickPopper = (event) => {
     setAnchorEl(event.currentTarget);
   };

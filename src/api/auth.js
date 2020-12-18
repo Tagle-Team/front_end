@@ -40,7 +40,7 @@ export const signIn = async ({ userId, password }) => {
 
 export const signOut = async () => {
   try {
-    return client.post('/v1/users/signout');
+    return client.post('/users/signout');
   } catch (error) {
     console.log(error);
   }

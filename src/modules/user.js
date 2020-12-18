@@ -38,7 +38,7 @@ const user = handleActions(
     [LOGOUT]: (state) => ({
       ...state,
       userName: null,
-      theme: { ...initialState.theme },
+      email: null,
     }),
   },
   initialState
