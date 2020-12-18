@@ -12,14 +12,16 @@ export const confirmId = async ({ id }) => {
   }
 };
 
-export const signUp = async ({ userId, password, userName, email }) => {
+export const signUp = async (params) => {
+  const formData = new FormData();
+  for (let key in params) {
+    if (params.hasOwnProperty(key)) {
+      formData.append(key, params[key]);
+    }
+  }
+
   try {
-    return client.post('/users/signup', {
-      userId,
-      password,
-      userName,
-      email,
-    });
+    return client.post('/users/signup', formData);
   } catch (error) {
     console.log(error);
   }

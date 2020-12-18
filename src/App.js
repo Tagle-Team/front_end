@@ -6,7 +6,6 @@ import { theme } from './constants/GlobalUITheme';
 import routes from 'resources/routes';
 
 import SignUp from 'components/pages/signUp';
-import UploadProfileImg from 'components/pages/profile/UploadProfileImg';
 import Tag from 'components/pages/tag';
 import ElevateAppBar from 'components/UI/organisms/Navigation';
 
@@ -25,7 +24,6 @@ function App() {
           )}
         />
         <Route exact path={routes.signup} component={SignUp} />
-        <Route exact path={routes.profile} component={UploadProfileImg} />
         <Route exact path={routes.signin} render={() => 'sign in'} />
       </Router>
     </MuiThemeProvider>

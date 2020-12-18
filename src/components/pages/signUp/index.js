@@ -10,8 +10,10 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 
+import AvatarDropzone from 'components/UI/atoms/AvatarDropzone';
 import Form from 'components/templates/auth/Form';
 import { signUp, confirmId } from 'api/auth';
+import routes from 'resources/routes';
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -42,6 +44,11 @@ const useStyles = makeStyles((theme) => ({
   submitButton: {
     marginTop: '40px',
   },
+  avatar: {
+    width: theme.spacing(10),
+    height: theme.spacing(10),
+    margin: 'auto',
+  },
 }));
 
 function SignUp() {
@@ -61,6 +68,7 @@ function SignUp() {
     confirmPassword: '',
     userName: '',
     email: '',
+    avatar: null,
   });
 
   const getModel = () => {
@@ -121,17 +129,23 @@ function SignUp() {
   };
 
   const handleSignUpClick = () => {
-    const { userId, password, userName, email } = getModel();
+    const { userId, password, userName, email, avatar } = getModel();
 
-    signUp({ userId, password, userName, email }).then((res) => {
+    signUp({ userId, password, userName, email, avatar }).then((res) => {
       if (res.data) {
-        history.push('/signin');
+        history.push(routes.signin);
       }
     });
+    history.push(routes.signin);
+  };
+
+  const handleChangeAvatar = (file) => {
+    setModel({ name: 'avatar', value: file });
   };
 
   return (
     <Form title="Sign Up">
+      <AvatarDropzone onChangeAvatar={handleChangeAvatar} />
       <FormControl error={!!error.userId}>
         <InputLabel htmlFor="component-error">ID</InputLabel>
         <Input
