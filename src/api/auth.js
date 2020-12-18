@@ -26,3 +26,22 @@ export const signUp = async (params) => {
     console.log(error);
   }
 };
+
+export const signIn = async ({ userId, password }) => {
+  try {
+    return client.post('/users/login', {
+      userId,
+      password,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const signOut = async () => {
+  try {
+    return client.post('/v1/users/signout');
+  } catch (error) {
+    console.log(error);
+  }
+};
