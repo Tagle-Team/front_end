@@ -61,7 +61,7 @@ function UserButton() {
 
   return (
     <>
-      {user && !!user.userName ? (
+      {!!user.userName ? (
         <ClickAwayListener onClickAway={handleClickAway}>
           <div>
             <IconButton
