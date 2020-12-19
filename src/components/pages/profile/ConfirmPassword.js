@@ -43,7 +43,7 @@ function ConfirmPassword({ setApproval, setInitUserInfo }) {
           const { result, userInfo } = res.data;
 
           if (result) {
-            setInitUserInfo({ ...userInfo });
+            setInitUserInfo(userInfo);
             setApproval(true);
           } else {
             setError({
