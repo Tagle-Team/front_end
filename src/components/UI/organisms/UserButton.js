@@ -11,8 +11,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-
-import FaceIcon from '@material-ui/icons/Face';
+import Avatar from '@material-ui/core/Avatar';
 
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -68,7 +67,9 @@ function UserButton() {
               type="button"
               edge="start"
             >
-              <FaceIcon />
+              <Avatar
+                src={!!user.image ? `static/avatar/${user.image}` : null}
+              />
             </IconButton>
             <Popper
               id="user-popper"

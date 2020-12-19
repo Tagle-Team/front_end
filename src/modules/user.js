@@ -24,21 +24,24 @@ export function* userSaga() {
 const initialState = {
   userName: null,
   email: null,
+  image: null,
 };
 
 const user = handleActions(
   {
-    [SET_USER_INFO]: (state, { payload: { userName, email } }) => {
+    [SET_USER_INFO]: (state, { payload: { userName, email, image } }) => {
       return {
         ...state,
         userName,
         email,
+        image,
       };
     },
     [LOGOUT]: (state) => ({
       ...state,
       userName: null,
       email: null,
+      image: null,
     }),
   },
   initialState
