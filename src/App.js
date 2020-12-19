@@ -8,7 +8,8 @@ import thunk from 'redux-thunk';
 import routes from 'resources/routes';
 
 import SignUp from 'components/pages/signUp';
-import UploadProfileImg from 'components/pages/profile/UploadProfileImg';
+import SignIn from 'components/pages/signIn';
+import Profile from 'components/pages/profile';
 import Tag from 'components/pages/tag';
 import ElevateAppBar from 'components/UI/organisms/Navigation';
 import {Provider} from 'react-redux';
@@ -23,7 +24,7 @@ function App(req, res) {
     <Provider store={store}>
       <MuiThemeProvider theme={theme}>
         <Router>
-          <Route exact path={routes.root} render={() => 'Hello'} />
+          <Route exact path={routes.root} render={() => 'root'} />
           <Route
             exact
             path={routes.tag}
@@ -34,8 +35,8 @@ function App(req, res) {
             )}
           />
           <Route exact path={routes.signup} component={SignUp} />
-          <Route exact path={routes.profile} component={UploadProfileImg} />
-          <Route exact path={routes.signin} render={() => 'sign in'} />
+          <Route exact path={routes.profile} component={Profile} />
+          <Route exact path={routes.signin} component={SignIn} />
         </Router>
       </MuiThemeProvider>
     </Provider>

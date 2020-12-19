@@ -11,6 +11,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import logo from 'images/tagle-logo.png';
 
+import UserButton from 'components/UI/organisms/UserButton';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -81,7 +83,8 @@ export default function ElevateAppBar(props) {
               <Button color="inherit">바로가기</Button>
             </div>
             <div className={classes.toolbarUser}>
-              <Button>로그인</Button>
+              {/* <Button>로그인</Button> */}
+              <UserButton />
             </div>
           </Toolbar>
         </AppBar>

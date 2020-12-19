@@ -12,13 +12,44 @@ export const confirmId = async ({ id }) => {
   }
 };
 
-export const signUp = async ({ userId, password, userName, email }) => {
+export const signUp = async (params) => {
+  const formData = new FormData();
+  for (let key in params) {
+    if (params.hasOwnProperty(key)) {
+      formData.append(key, params[key]);
+    }
+  }
+
   try {
-    return client.post('/users/signup', {
+    return client.post('/users/signup', formData);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const signIn = async ({ userId, password }) => {
+  try {
+    return client.post('/users/login', {
       userId,
       password,
-      userName,
-      email,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const signOut = async () => {
+  try {
+    return client.post('/users/signout');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const confirmUser = async ({ password }) => {
+  try {
+    return client.post('/users/confirm', {
+      password,
     });
   } catch (error) {
     console.log(error);
