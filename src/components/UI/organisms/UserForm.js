@@ -42,8 +42,14 @@ const useStyles = makeStyles((theme) => ({
       marginTop: '15px',
     },
   },
-  submitButton: {
+  footerWrap: {
     marginTop: '40px',
+    display: 'flex',
+    flexDirection: 'column',
+    padding: 0,
+    '& > *:not(:first-child)': {
+      marginTop: '15px',
+    },
   },
   avatar: {
     width: theme.spacing(10),
@@ -52,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SignUp() {
+function UserForm({ title, initModel, footer }) {
   const classes = useStyles();
   const history = useHistory();
   const [error, setError] = useState({
@@ -145,7 +151,7 @@ function SignUp() {
   };
 
   return (
-    <Form title="Sign Up">
+    <Form title={title}>
       <AvatarDropzone onChangeAvatar={handleChangeAvatar} />
       <FormControl error={!!error.userId}>
         <InputLabel htmlFor="component-error">ID</InputLabel>
@@ -155,6 +161,8 @@ function SignUp() {
           label="ID"
           onChange={handleChange}
           // onBlur={handleBlur}
+          defaultValue={initModel.userId}
+          readOnly={!!initModel.userId}
           aria-describedby="component-error-text"
         />
         <FormHelperText id="component-error-text">
@@ -176,20 +184,36 @@ function SignUp() {
         />
         <FormHelperText>{error.confirmPassword}</FormHelperText>
       </FormControl>
-      <TextField name="userName" label="Name" onChange={handleChange} />
-      <TextField name="email" label="Email" onChange={handleChange} />
-      <Button
-        variant="contained"
-        color="primary"
-        className={classes.submitButton}
-        size="large"
-        onClick={handleSignUpClick}
-      >
-        Sign Up
-      </Button>
-      <GoMainButton />
+      <TextField
+        name="userName"
+        label="Name"
+        defaultValue={initModel.userName}
+        onChange={handleChange}
+      />
+      <TextField
+        name="email"
+        label="Email"
+        defaultValue={initModel.email}
+        onChange={handleChange}
+      />
+      <dir className={classes.footerWrap}>
+        {!!footer ? (
+          footer
+        ) : (
+          <Button
+            variant="contained"
+            color="primary"
+            // className={classes.submitButton}
+            size="large"
+            onClick={handleSignUpClick}
+          >
+            Sign Up
+          </Button>
+        )}
+        <GoMainButton />
+      </dir>
     </Form>
   );
 }
 
-export default SignUp;
+export default UserForm;

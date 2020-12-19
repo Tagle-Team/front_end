@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '50px',
     borderRadius: '10px',
     boxShadow: `0 20px 40px 0 rgba(0,0,0,.15)`,
-    zIndex: 10,
+    // zIndex: 10,
   },
   root: {
     height: '100vh',
@@ -43,6 +43,12 @@ const useStyles = makeStyles((theme) => ({
 function Form({ title, children }) {
   const classes = useStyles();
 
+  const handleKeyDown = (event) => {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+    }
+  };
+
   return (
     <div className={classes.background}>
       <img src={logo} alt="logo" className={classes.logo} />
@@ -58,7 +64,11 @@ function Form({ title, children }) {
           >
             {title}
           </Typography>
-          <form autoComplete="off" className={classes.form}>
+          <form
+            autoComplete="off"
+            className={classes.form}
+            onKeyDown={handleKeyDown}
+          >
             {children}
           </form>
         </div>

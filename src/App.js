@@ -7,6 +7,7 @@ import routes from 'resources/routes';
 
 import SignUp from 'components/pages/signUp';
 import SignIn from 'components/pages/signIn';
+import Profile from 'components/pages/profile';
 import Tag from 'components/pages/tag';
 import ElevateAppBar from 'components/UI/organisms/Navigation';
 
@@ -26,6 +27,7 @@ function App() {
         />
         <Route exact path={routes.signup} component={SignUp} />
         <Route exact path={routes.signin} component={SignIn} />
+        <Route exact path={routes.profile} component={Profile} />
       </Router>
     </MuiThemeProvider>
   );

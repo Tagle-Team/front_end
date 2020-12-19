@@ -12,6 +12,7 @@ import { setUserInfo } from 'modules/user';
 import Form from 'components/templates/auth/Form';
 
 import { signIn } from 'api/auth';
+import GoMainButton from 'components/UI/atoms/GoMainButton';
 
 const useStyles = makeStyles((theme) => ({
   submitButton: {
@@ -110,6 +111,7 @@ function SignIn() {
       >
         Sign In
       </Button>
+      <GoMainButton />
     </Form>
   );
 }

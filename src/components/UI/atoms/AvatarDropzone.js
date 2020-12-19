@@ -2,10 +2,16 @@ import React, { useCallback, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import { useDropzone } from 'react-dropzone';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  dropzoneWrap: {
     padding: theme.spacing(1),
+    margin: theme.spacing(1),
   },
   avatar: {
     width: theme.spacing(10),
@@ -57,16 +63,19 @@ function AvatarDropzone({ onChangeAvatar }) {
   });
 
   return (
-    <div {...getRootProps()} className={classes.root}>
-      <Avatar className={classes.avatar} src={avatar.preview} />
-      <input {...getInputProps()} />
-      <div className={classes.textCenter}>
-        {isDragActive ? (
-          <p>Drop the files here ...</p>
-        ) : (
-          <p>프로필 사진 업로드</p>
-        )}
+    <div className={classes.root}>
+      <div {...getRootProps()} className={classes.dropzoneWrap}>
+        <Avatar className={classes.avatar} src={avatar.preview} />
+        <input {...getInputProps()} />
+        <div className={classes.textCenter}>
+          {isDragActive ? (
+            <p>Drop the files here ...</p>
+          ) : (
+            <p>프로필 사진 업로드</p>
+          )}
+        </div>
       </div>
+      {avatar.preview && <Button>프로필 사진 제거</Button>}
     </div>
   );
 }

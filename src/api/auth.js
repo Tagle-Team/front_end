@@ -45,3 +45,13 @@ export const signOut = async () => {
     console.log(error);
   }
 };
+
+export const confirmUser = async ({ password }) => {
+  try {
+    return client.post('/users/confirm', {
+      password,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

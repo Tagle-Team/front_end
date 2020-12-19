@@ -12,6 +12,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Avatar from '@material-ui/core/Avatar';
+import Divider from '@material-ui/core/Divider';
 
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,7 +40,7 @@ function UserButton() {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClickPopper = (event) => {
-    setAnchorEl(event.currentTarget);
+    setAnchorEl(!!anchorEl ? null : event.currentTarget);
   };
 
   const handleSignOutClick = () => {
@@ -52,6 +53,10 @@ function UserButton() {
 
   const handleGoSignIn = () => {
     history.push(routes.signin);
+  };
+
+  const handleGoProrile = () => {
+    history.push(routes.profile);
   };
 
   return (
@@ -91,6 +96,13 @@ function UserButton() {
                         <ListItemText
                           primary="Sign Out"
                           onClick={handleSignOutClick}
+                        />
+                      </ListItem>
+                      <Divider />
+                      <ListItem button>
+                        <ListItemText
+                          primary="프로필"
+                          onClick={handleGoProrile}
                         />
                       </ListItem>
                     </List>
