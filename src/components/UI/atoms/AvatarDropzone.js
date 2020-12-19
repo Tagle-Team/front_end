@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
   },
   dropzoneWrap: {
     padding: theme.spacing(1),
-    margin: theme.spacing(1),
   },
   avatar: {
     width: theme.spacing(10),
@@ -23,11 +22,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AvatarDropzone({ onChangeAvatar }) {
+function AvatarDropzone({ onChangeAvatar, src }) {
   const classes = useStyles();
   const [avatar, setAvatar] = useState({
     // file: null,
-    preview: null,
+    preview: src,
   });
 
   const onDrop = useCallback(
@@ -62,6 +61,14 @@ function AvatarDropzone({ onChangeAvatar }) {
     maxFiles: 1,
   });
 
+  const handleDelAvatar = () => {
+    onChangeAvatar(null);
+    setAvatar({
+      ...avatar,
+      preview: null,
+    });
+  };
+
   return (
     <div className={classes.root}>
       <div {...getRootProps()} className={classes.dropzoneWrap}>
@@ -75,7 +82,9 @@ function AvatarDropzone({ onChangeAvatar }) {
           )}
         </div>
       </div>
-      {avatar.preview && <Button>프로필 사진 제거</Button>}
+      {avatar.preview && (
+        <Button onClick={handleDelAvatar}>프로필 사진 제거</Button>
+      )}
     </div>
   );
 }

@@ -1,8 +1,6 @@
-import React, { useRef, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import deepPurple from '@material-ui/core/colors/deepPurple';
 import blue from '@material-ui/core/colors/blue';
 import FormControl from '@material-ui/core/FormControl';
@@ -12,9 +10,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 import AvatarDropzone from 'components/UI/atoms/AvatarDropzone';
 import Form from 'components/templates/auth/Form';
-import { signUp, confirmId } from 'api/auth';
+import { confirmId } from 'api/auth';
 import routes from 'resources/routes';
 import GoMainButton from 'components/UI/atoms/GoMainButton';
+import { avatarStaticPath } from 'resources/constant';
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -58,9 +57,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function UserForm({ title, initModel, footer }) {
+function UserForm({ title, initModel, footer, setModel, getModel, setIsOk }) {
   const classes = useStyles();
-  const history = useHistory();
   const [error, setError] = useState({
     userId: '',
     password: '',
@@ -69,26 +67,6 @@ function UserForm({ title, initModel, footer }) {
     email: '',
   });
 
-  const model = useRef({
-    userId: '',
-    password: '',
-    confirmPassword: '',
-    userName: '',
-    email: '',
-    avatar: null,
-  });
-
-  const getModel = () => {
-    return model.current;
-  };
-
-  const setModel = ({ name, value }) => {
-    model.current = {
-      ...getModel(),
-      [name]: value,
-    };
-  };
-
   const handleChange = async (e) => {
     const {
       name,
@@ -96,12 +74,14 @@ function UserForm({ title, initModel, footer }) {
       // ,
     } = e.target;
     const value = inputValue.trim();
+    let isOk = true;
 
     if (name === 'userId') {
       if (value !== '') {
         const res = await confirmId({ id: value });
 
         if (res.data.result === false) {
+          isOk = false;
           setError({
             ...error,
             [name]: '중복된 아이디 입니다.',
@@ -120,6 +100,7 @@ function UserForm({ title, initModel, footer }) {
       const compareVal = name === 'password' ? confirmPassword : password;
 
       if (value !== compareVal) {
+        isOk = false;
         setError({
           ...error,
           confirmPassword: '비밀번호가 일치하지 않습니다.',
@@ -132,18 +113,8 @@ function UserForm({ title, initModel, footer }) {
       }
     }
 
+    setIsOk(isOk);
     setModel({ name, value });
-  };
-
-  const handleSignUpClick = () => {
-    const { userId, password, userName, email, avatar } = getModel();
-
-    signUp({ userId, password, userName, email, avatar }).then((res) => {
-      if (res.data) {
-        history.push(routes.signin);
-      }
-    });
-    history.push(routes.signin);
   };
 
   const handleChangeAvatar = (file) => {
@@ -152,7 +123,10 @@ function UserForm({ title, initModel, footer }) {
 
   return (
     <Form title={title}>
-      <AvatarDropzone onChangeAvatar={handleChangeAvatar} />
+      <AvatarDropzone
+        onChangeAvatar={handleChangeAvatar}
+        src={`${avatarStaticPath}/${initModel.image}`}
+      />
       <FormControl error={!!error.userId}>
         <InputLabel htmlFor="component-error">ID</InputLabel>
         <Input
@@ -197,19 +171,7 @@ function UserForm({ title, initModel, footer }) {
         onChange={handleChange}
       />
       <dir className={classes.footerWrap}>
-        {!!footer ? (
-          footer
-        ) : (
-          <Button
-            variant="contained"
-            color="primary"
-            // className={classes.submitButton}
-            size="large"
-            onClick={handleSignUpClick}
-          >
-            Sign Up
-          </Button>
-        )}
+        {footer}
         <GoMainButton />
       </dir>
     </Form>
