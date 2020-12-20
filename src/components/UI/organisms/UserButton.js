@@ -18,6 +18,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import routes from 'resources/routes';
+import { avatarStaticPath } from 'resources/constant';
 import { logout } from 'modules/user';
 
 const useStyles = makeStyles((theme) => ({
@@ -73,7 +74,7 @@ function UserButton() {
               edge="start"
             >
               <Avatar
-                src={!!user.image ? `static/avatar/${user.image}` : null}
+                src={!!user.image ? `${avatarStaticPath}/${user.image}` : null}
               />
             </IconButton>
             <Popper
