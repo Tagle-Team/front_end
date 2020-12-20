@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
   userCardContent: {
     padding: theme.spacing(1),
   },
+  avatarWrap: {
+    boxShadow: '0 3px 15px 0 rgba(0,0,0,.25)',
+  },
 }));
 
 function UserButton() {
@@ -74,6 +77,7 @@ function UserButton() {
               edge="start"
             >
               <Avatar
+                className={classes.avatarWrap}
                 src={!!user.image ? `${avatarStaticPath}/${user.image}` : null}
               />
             </IconButton>
