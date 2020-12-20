@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
@@ -43,6 +43,12 @@ function UserButton() {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
 
+  useEffect(() => {
+    if (!!!user.userName) {
+      history.push(routes.tag);
+    }
+  }, [user.userName, history]);
+
   const handleClickPopper = (event) => {
     setAnchorEl(!!anchorEl ? null : event.currentTarget);
   };
@@ -61,6 +67,10 @@ function UserButton() {
 
   const handleGoProrile = () => {
     history.push(routes.profile);
+  };
+
+  const handleGoMyTag = () => {
+    history.push(routes.myTag);
   };
 
   return (
@@ -108,6 +118,12 @@ function UserButton() {
                         <ListItemText
                           primary="프로필"
                           onClick={handleGoProrile}
+                        />
+                      </ListItem>
+                      <ListItem button>
+                        <ListItemText
+                          primary="My Tag"
+                          onClick={handleGoMyTag}
                         />
                       </ListItem>
                     </List>

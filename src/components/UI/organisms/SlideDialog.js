@@ -11,14 +11,27 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function SlideDialog({ open, onClose, title, children }) {
+export default function SlideDialog({
+  open,
+  onClose,
+  title,
+  children,
+  fullWidth = false,
+  onOkClick = (f) => f,
+}) {
   const handleClose = () => {
+    onClose();
+  };
+
+  const handleOkClick = () => {
+    onOkClick();
     onClose();
   };
 
   return (
     <Dialog
       open={open}
+      fullWidth={fullWidth}
       TransitionComponent={Transition}
       keepMounted
       onClose={handleClose}
@@ -27,13 +40,13 @@ export default function SlideDialog({ open, onClose, title, children }) {
     >
       <DialogTitle id="alert-dialog-slide-title">{title}</DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-slide-description">
+        <DialogContentText id="alert-dialog-slide-description" component="div">
           {children}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleClose} color="primary">
+        <Button onClick={handleOkClick} color="primary">
           Ok
         </Button>
       </DialogActions>

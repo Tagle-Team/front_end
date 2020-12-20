@@ -8,6 +8,7 @@ import routes from 'resources/routes';
 import SignUp from 'components/pages/signUp';
 import SignIn from 'components/pages/signIn';
 import Profile from 'components/pages/profile';
+import MyTag from 'components/pages/myTag';
 import Tag from 'components/pages/tag';
 import ElevateAppBar from 'components/UI/organisms/Navigation';
 
@@ -19,11 +20,14 @@ function App(req, res) {
         <Route
           exact
           path={routes.tag}
-          render={(props) => <ElevateAppBar>{ <Tag {...props} /> }</ElevateAppBar>}
+          render={(props) => (
+            <ElevateAppBar>{<Tag {...props} />}</ElevateAppBar>
+          )}
         />
         <Route exact path={routes.signup} component={SignUp} />
         <Route exact path={routes.profile} component={Profile} />
         <Route exact path={routes.signin} component={SignIn} />
+        <Route exact path={routes.myTag} component={MyTag} />
       </Router>
     </MuiThemeProvider>
   );

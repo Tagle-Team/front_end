@@ -27,7 +27,7 @@ client.interceptors.response.use(
       //비승인
       localStorage.setItem('error', JSON.stringify({ status }));
       localStorage.removeItem('user');
-      window.location = '/';
+      window.location = '/tag';
     }
     //403 > 권한없음
     return Promise.reject(error);

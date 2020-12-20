@@ -4,6 +4,7 @@ const routes = {
   signup: '/signup',
   signin: '/signin',
   profile: '/profile',
+  myTag: '/mytag',
 };
 
 export default routes;
