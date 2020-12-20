@@ -278,8 +278,17 @@ const mapStateToProps = (state, props) => {
   return {
     cards: props.list.cards.map((cardId) => state.cardsById[cardId])
   };*/
-  console.log(props);
-  return {};
+  // console.log(state);
+  // console.log('props- -->', props.list.cards.map((card) => state.cardsById[card._id]));
+  /*const boardData = state.boardsById['-ukBHjV23H'];
+  const listData = boardData.lists.map((listId) => state.listsById[listId]);
+  const cardDataTemp = listData.map((list) => {
+    return list.cards.map((card) => {
+      return state.cardsById[card]
+    })
+  });
+  props.list.cards.map((cardId) => state.cardsById[cardId]);*/
+  return { };
 };
 
 export default connect(mapStateToProps)(List);

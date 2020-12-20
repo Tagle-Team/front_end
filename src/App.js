@@ -19,7 +19,7 @@ function App(req, res) {
         <Route
           exact
           path={routes.tag}
-          render={(props) => <ElevateAppBar>{/* <Tag /> */}</ElevateAppBar>}
+          render={(props) => <ElevateAppBar>{ <Tag {...props} /> }</ElevateAppBar>}
         />
         <Route exact path={routes.signup} component={SignUp} />
         <Route exact path={routes.profile} component={Profile} />

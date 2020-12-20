@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import { useHistory } from 'react-router-dom';
-import {connect} from 'react-redux';
+import {connect, useSelector} from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Tag({dispatch}) {
+function Tag({dispatch, lists, boardTitle, boardId}) {
   const classes = useStyles();
   const history = useHistory();
   const [tagBoard, setTagBoard] = useState({
@@ -94,9 +94,11 @@ function Tag({dispatch}) {
     boardId: ''
   });
 
+  const storeState = useSelector(state => state);
+
   useEffect(() => {
     onGettingBoard();
-  }, []);
+  }, [lists]);
 
   useEffect(() => {
     onSettingBoard();
@@ -136,6 +138,27 @@ function Tag({dispatch}) {
         })
       );
     }
+
+    console.log('state lists', lists);
+    const boardData = storeState.boardsById['-ukBHjV23H'];
+    const boardTitle = boardData.title;
+    const listData = boardData.lists.map((listId) => storeState.listsById[listId]);
+    const cardDataTemp = listData.map((list) => {
+      return list.cards.map((card) => {
+        return storeState.cardsById[card]
+      })
+    });
+    for (let i = 0; i < listData.length; i++) {
+      listData[i].cards = listData[i].cards.map((card) => storeState.cardsById[card]);
+    }
+    // console.log('lists------', listData);
+    // console.log('cards-----', cardDataTemp.flat(Infinity));
+    setTagBoard({
+      lists: listData,
+      cards: cardDataTemp.flat(Infinity),
+      boardTitle: boardTitle,
+      boardId: '-ukBHjV23H'
+    });
   };
 
   const onAddList = async () => {
@@ -162,9 +185,7 @@ function Tag({dispatch}) {
     ).then((res) => {
     });*/
     getBoard().then((res) => {
-      console.log(res);
       if (res.data) {
-        console.log(res.data);
         setTagBoard({
           lists: res.data.lists,
           boardTitle: res.data.boardTitle,
@@ -182,8 +203,8 @@ function Tag({dispatch}) {
         <BoardTitle>{tagBoard.boardTitle}</BoardTitle>
       </BoardTitleWrapper>
       <StyledBoard numLists={tagBoard.lists.length}>
-        {console.log(tagBoard.lists.length)}
         <DragDropContext onDragEnd={handleDragEnd}>
+          {tagBoard.boardId &&
           <Droppable droppableId={tagBoard.boardId} type="COLUMN" direction="horizontal">
             {(droppableProvided) => (
               <ListsWrapper ref={droppableProvided.innerRef}>
@@ -196,7 +217,7 @@ function Tag({dispatch}) {
                         {...provided.dragHandleProps}
                         data-react-beautiful-dnd-draggable="0"
                         data-react-beautiful-dnd-drag-handle="0">
-                        <List list={list} boardId={tagBoard.boardId} cards={list.cards} />
+                        <List list={list} boardId={tagBoard.boardId} cards={list.cards}/>
                         {provided.placeholder}
                       </div>
                     )}
@@ -216,22 +237,23 @@ function Tag({dispatch}) {
               </ListsWrapper>
             )}
           </Droppable>
+          }
         </DragDropContext>
       </StyledBoard>
+      }
     </React.Fragment>
   );
 }
 
 const mapStateToProps = (state, props) => {
-  /*const {boardId} = props.match.params;
-  console.log(props);
-  const board = state.boardsById[boardId];
-  return {
-    lists: board.lists.map((listId) => state.listsById[listId]),
-    boardTitle: board.title,
-    boardId
-  };*/
-  console.log(props);
+  if (state.boardsById['-ukBHjV23H']) {
+    const board = state.boardsById['-ukBHjV23H'];
+    return {
+      lists: board.lists.map((listId) => state.listsById[listId]),
+      boardTitle: board.title,
+      boardId: '-ukBHjV23H'
+    };
+  }
   return {};
 };
 

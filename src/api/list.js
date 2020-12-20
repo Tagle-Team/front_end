@@ -43,7 +43,10 @@ export const editListTitle = ({ listTitle, listId, boardId }) => (dispatch) => {
 export const deleteList = ({ cards, listId, boardId }) => (dispatch) => {
   try {
     return client.delete('/lists/list', {
-      listId, boardId
+      data: {
+        listId,
+        boardId
+      }
     }).then(() => {
       dispatch({
         type: 'DELETE_LIST',
@@ -60,7 +63,6 @@ export const deleteList = ({ cards, listId, boardId }) => (dispatch) => {
 };
 
 export const reorderList = ({ cardId, sourceId, destinationId, sourceIndex, destinationIndex, boardId }) => (dispatch) => {
-  console.log(cardId, sourceId, destinationId, sourceIndex, destinationIndex, boardId);
   try {
     return client.put('/lists/reorder-list', {
       cardId,

@@ -18,7 +18,9 @@ export const addBoard = ({ boardTitle }) => (dispatch) => {
 export const deleteBoard = ({ boardId }) => (dispatch) => {
   try {
     return client.delete('/boards/board', {
-      boardId
+      data: {
+        boardId: boardId
+      }
     }).then(() => {
       dispatch({
         type: 'DELETE_BOARD',
@@ -69,7 +71,6 @@ export const generateExampleBoard = () => (dispatch) => {
 };
 
 export const setBoard = (lists, boardTitle, boardId, cards) => (dispatch) => {
-  console.log('card-------->', cards);
   return dispatch({
     type: 'SET_BOARD',
     payload: {boardTitle, boardId, lists, cards}
