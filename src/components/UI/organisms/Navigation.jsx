@@ -75,13 +75,13 @@ export default function ElevateAppBar(props) {
             <Typography className={classes.title} variant="h6">
               tagle
             </Typography>
-            <div className={classes.toolbarButtons}>
+            {/* <div className={classes.toolbarButtons}>
               <Button color="inherit">홈</Button>
               <Button color="inherit">소개</Button>
               <Button color="inherit">태그</Button>
               <Button color="inherit">공유</Button>
               <Button color="inherit">바로가기</Button>
-            </div>
+            </div> */}
             <div className={classes.toolbarUser}>
               {/* <Button>로그인</Button> */}
               <UserButton />

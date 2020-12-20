@@ -65,6 +65,10 @@ function UserButton() {
     history.push(routes.signin);
   };
 
+  const handleGoSignUp = () => {
+    history.push(routes.signup);
+  };
+
   const handleGoProrile = () => {
     history.push(routes.profile);
   };
@@ -134,7 +138,11 @@ function UserButton() {
           </div>
         </ClickAwayListener>
       ) : (
-        <Button onClick={handleGoSignIn}>로그인</Button>
+        <>
+          <Button onClick={handleGoSignIn}>Sign In</Button>
+          {' / '}
+          <Button onClick={handleGoSignUp}>Sign Up</Button>
+        </>
       )}
     </>
   );
