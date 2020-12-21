@@ -27,9 +27,9 @@ export const updatePrivate = async ({ id, isPrivate }) => {
   }
 };
 
-export const updatePost = async ({ seq, id, isPrivate, contents }) => {
+export const updatePost = async ({ id, isPrivate, contents }) => {
   try {
-    return client.put(`/post/${seq}`, {
+    return client.put(`/post/${id}`, {
       id,
       isPrivate,
       contents,
@@ -39,9 +39,9 @@ export const updatePost = async ({ seq, id, isPrivate, contents }) => {
   }
 };
 
-export const deletePost = async ({ seq, id }) => {
+export const deletePost = async ({ id }) => {
   try {
-    return client.delete(`/post/${seq}`, {
+    return client.delete(`/post/${id}`, {
       data: { id },
     });
   } catch (error) {

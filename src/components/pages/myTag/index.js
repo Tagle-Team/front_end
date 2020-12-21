@@ -134,9 +134,15 @@ export default function MyTag() {
               //   })
               // :
               posts.map((item) => {
-                const { seq } = item;
+                const { /*seq,*/ _id } = item;
                 return (
-                  <Grid item key={seq} xs={6} sm={3}>
+                  <Grid
+                    item
+                    // key={seq}
+                    key={_id}
+                    xs={6}
+                    sm={3}
+                  >
                     <Card {...item} setRefresh={setRefresh} />
                   </Grid>
                 );
