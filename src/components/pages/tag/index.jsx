@@ -142,7 +142,9 @@ function Tag({dispatch, lists, boardTitle, boardId}) {
           destinationIndex: destination.index,
           boardId: tagBoard.boardId
         })
-      );
+      ).then(() => {
+        setTriggerBoard(true);
+      });
     }
 
     console.log('state lists', lists);
