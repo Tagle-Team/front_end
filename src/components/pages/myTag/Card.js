@@ -42,7 +42,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CardItem(props) {
   const classes = useStyles();
-  const { _id, contents, createdAt, tags, updatedAt, seq, setRefresh } = props;
+  const {
+    _id,
+    contents,
+    createdAt,
+    tags,
+    updatedAt,
+    /*seq,*/ setRefresh,
+  } = props;
   const [isPrivate, setIsPrivate] = useState(props.isPrivate);
   const [open, setOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -72,7 +79,7 @@ export default function CardItem(props) {
   };
 
   const handleDeletePost = async () => {
-    const res = await deletePost({ seq, id: _id });
+    const res = await deletePost({ /*seq,*/ id: _id });
 
     if (res && res.data) {
       setRefresh(true);

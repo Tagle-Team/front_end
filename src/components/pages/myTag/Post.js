@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 
 function PostDialog(props) {
   const classes = useStyles();
-  const { open, onClose, _id: postId, seq, setRefresh } = props;
+  const { open, onClose, _id: postId, /*seq,*/ setRefresh } = props;
   const [checked, setChecked] = useState(!!props.isPrivate);
   const contents = useRef(props.contents || '');
 
@@ -35,7 +35,11 @@ function PostDialog(props) {
     const contents = getContents();
     let res = null;
     if (!!postId) {
-      res = await updatePost({ contents, isPrivate: checked, seq, id: postId });
+      res = await updatePost({
+        contents,
+        isPrivate: checked,
+        /*seq,*/ id: postId,
+      });
     } else {
       res = await addPost({ contents, isPrivate: checked });
     }
