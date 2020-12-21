@@ -93,11 +93,15 @@ function Tag({dispatch, lists, boardTitle, boardId}) {
     boardTitle: '',
     boardId: ''
   });
+  const [triggerBoard, setTriggerBoard] = useState(true);
 
   const storeState = useSelector(state => state);
 
   useEffect(() => {
-    onGettingBoard();
+    if (triggerBoard) {
+      onGettingBoard();
+      setTriggerBoard(false);
+    }
   }, [lists]);
 
   useEffect(() => {
@@ -153,12 +157,15 @@ function Tag({dispatch, lists, boardTitle, boardId}) {
     }
     // console.log('lists------', listData);
     // console.log('cards-----', cardDataTemp.flat(Infinity));
+
     setTagBoard({
       lists: listData,
       cards: cardDataTemp.flat(Infinity),
       boardTitle: boardTitle,
       boardId: '-ukBHjV23H'
     });
+
+    setTriggerBoard(true);
   };
 
   const onAddList = async () => {
