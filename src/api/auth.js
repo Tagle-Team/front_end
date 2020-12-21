@@ -1,5 +1,9 @@
 import client from './client';
 
+/**
+ * id 중복 체크
+ * @param {json} param0
+ */
 export const confirmId = async ({ id }) => {
   try {
     return client.get('/users/confirmId', {
@@ -12,7 +16,12 @@ export const confirmId = async ({ id }) => {
   }
 };
 
+/**
+ * 회원가입
+ * @param {json} params
+ */
 export const signUp = async (params) => {
+  // 파일 전송 해야하므로 formData 로 변경하여 전송
   const formData = new FormData();
   for (let key in params) {
     if (params.hasOwnProperty(key)) {
@@ -27,6 +36,10 @@ export const signUp = async (params) => {
   }
 };
 
+/**
+ * 로그인
+ * @param {json} param0
+ */
 export const signIn = async ({ userId, password }) => {
   try {
     return client.post('/users/login', {
@@ -38,6 +51,9 @@ export const signIn = async ({ userId, password }) => {
   }
 };
 
+/**
+ * 로그아웃 요청
+ */
 export const signOut = async () => {
   try {
     return client.post('/users/signout');
@@ -46,6 +62,10 @@ export const signOut = async () => {
   }
 };
 
+/**
+ * 현재 로그인한 사용자가 입력한 비밀번호 맞는지 확인하는 api 요청
+ * @param {json} param0
+ */
 export const confirmUser = async ({ password }) => {
   try {
     return client.post('/users/confirm', {

@@ -34,6 +34,7 @@ function PostDialog(props) {
   const handleOnOk = async () => {
     const contents = getContents();
     let res = null;
+    // 게시글 id 있는 경우 update 없는 경우 crate 수행
     if (!!postId) {
       res = await updatePost({
         contents,

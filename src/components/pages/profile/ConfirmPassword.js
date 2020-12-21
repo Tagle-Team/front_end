@@ -63,6 +63,10 @@ function ConfirmPassword({ setApproval, setInitUserInfo }) {
     }
   };
 
+  /**
+   * enter 키 입력시 비밀번호 확인
+   * @param {} event
+   */
   const handleKeyDown = (event) => {
     if (event.keyCode === 13) {
       handleOkClick();

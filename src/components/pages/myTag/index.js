@@ -45,6 +45,7 @@ export default function MyTag() {
   };
 
   useEffect(() => {
+    // 게시글 목록 새로고침
     if (refresh) {
       const fetch = async () => {
         const res = await fetchPosts();
@@ -75,6 +76,9 @@ export default function MyTag() {
     setSearchVal(e.target.value);
   };
 
+  /**
+   * tage 검색
+   */
   const handleSearchTag = () => {
     const search = getSearchVal().trim();
 
@@ -82,12 +86,17 @@ export default function MyTag() {
       setRefresh(true);
     } else {
       const tag = `#${search}`;
+      // 게시글 목록에서 해당 태그 단어 있는
       const filteredPosts = posts.filter((item) => item.tags.indexOf(tag) >= 0);
 
       setPosts(filteredPosts);
     }
   };
 
+  /**
+   * enter 클릭시 태그 검색
+   * @param {} event
+   */
   const handleKeyDown = (event) => {
     if (event.keyCode === 13) {
       handleSearchTag();

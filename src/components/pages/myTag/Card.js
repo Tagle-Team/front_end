@@ -50,8 +50,11 @@ export default function CardItem(props) {
     updatedAt,
     /*seq,*/ setRefresh,
   } = props;
+  //공개 비공개 여부
   const [isPrivate, setIsPrivate] = useState(props.isPrivate);
+  // 게시글 수정 모달 open 관련 state
   const [open, setOpen] = useState(false);
+  // 삭제 관련 confirm창 open state
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const handleTogglePrivate = async () => {

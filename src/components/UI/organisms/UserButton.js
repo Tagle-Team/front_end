@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * main 화면의 sign in / sign up , 로그인한 사용자 버튼에 쓰인 컴포넌트
+ */
 function UserButton() {
   const classes = useStyles();
   const dispatch = useDispatch();

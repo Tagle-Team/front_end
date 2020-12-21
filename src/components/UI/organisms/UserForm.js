@@ -57,6 +57,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * 사용자 정보 등록 수정 컴포넌트
+ * @param {json} props
+ */
 function UserForm({ title, initModel, footer, setModel, getModel, setIsOk }) {
   const classes = useStyles();
   const [error, setError] = useState({
@@ -68,16 +72,13 @@ function UserForm({ title, initModel, footer, setModel, getModel, setIsOk }) {
   });
 
   const handleChange = async (e) => {
-    const {
-      name,
-      value: inputValue,
-      // ,
-    } = e.target;
+    const { name, value: inputValue } = e.target;
     const value = inputValue.trim();
     let isOk = true;
 
     if (name === 'userId') {
       if (value !== '') {
+        // id 중복 체크
         const res = await confirmId({ id: value });
 
         if (res.data.result === false) {
@@ -95,6 +96,7 @@ function UserForm({ title, initModel, footer, setModel, getModel, setIsOk }) {
       }
     }
 
+    // 비밀번호, 비밀번호 확인 일치 하는지 체크
     if (name === 'confirmPassword' || name === 'password') {
       const { password, confirmPassword } = getModel();
       const compareVal = name === 'password' ? confirmPassword : password;
