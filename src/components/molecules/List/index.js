@@ -80,7 +80,7 @@ const ButtonWrapper = styled.div`
   align-items: center;
 `;
 
-const List = ({dispatch, boardId, cards, list}) => {
+const List = ({dispatch, boardId, cards, list, setTriggerBoard}) => {
   const [newCardFormIsOpen, setNewCardFormIsOpen] = useState(false);
   const [isListTitleInEdit, setIsListTitleInEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -159,6 +159,8 @@ const List = ({dispatch, boardId, cards, list}) => {
     await dispatch(addCard({cardTitle: newCardTitle, listId: list._id, boardId})).then(() => {
       setIsLoading(false);
       setNewCardTitle('');
+    }).then(() => {
+      setTriggerBoard(true);
     });
   };
 
@@ -175,11 +177,15 @@ const List = ({dispatch, boardId, cards, list}) => {
     ).then(() => {
       setTempCardTitle('');
       setCardInEdit(null);
+      setTriggerBoard(true);
     });
   };
 
   const onDeleteCard = (cardId) => {
-    dispatch(deleteCard({cardId, listId: list._id, boardId}));
+    dispatch(deleteCard({cardId, listId: list._id, boardId}))
+      .then(() => {
+        setTriggerBoard(true);
+      });
   };
 
   const onEditListTitle = async (listTitle, listId, boardId) => {
@@ -187,11 +193,16 @@ const List = ({dispatch, boardId, cards, list}) => {
     await dispatch(editListTitle({listTitle, listId, boardId})).then(() => {
       setNewListTitle('');
       setIsListTitleInEdit(false);
+    }).then(() => {
+      setTriggerBoard(true);
     });
   };
 
   const onDeleteList = (cards, listId, boardId) => {
-    dispatch(deleteList({cards, listId, boardId}));
+    dispatch(deleteList({cards, listId, boardId}))
+      .then(() => {
+        setTriggerBoard(true);
+      });
   };
 
   return (

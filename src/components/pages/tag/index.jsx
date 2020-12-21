@@ -102,7 +102,7 @@ function Tag({dispatch, lists, boardTitle, boardId}) {
       onGettingBoard();
       setTriggerBoard(false);
     }
-  }, [lists]);
+  }, [lists, triggerBoard]);
 
   useEffect(() => {
     onSettingBoard();
@@ -128,7 +128,9 @@ function Tag({dispatch, lists, boardTitle, boardId}) {
           sourceIndex: source.index,
           destinationIndex: destination.index
         })
-      );
+      ).then(() => {
+        setTriggerBoard(true);
+      });
       return;
     } else {
       dispatch(
@@ -177,6 +179,7 @@ function Tag({dispatch, lists, boardTitle, boardId}) {
     ).then(() => {
       setShowListAdder(false);
       setNewListTitle('');
+      setTriggerBoard(true);
     });
   };
 
@@ -224,7 +227,7 @@ function Tag({dispatch, lists, boardTitle, boardId}) {
                         {...provided.dragHandleProps}
                         data-react-beautiful-dnd-draggable="0"
                         data-react-beautiful-dnd-drag-handle="0">
-                        <List list={list} boardId={tagBoard.boardId} cards={list.cards}/>
+                        <List list={list} boardId={tagBoard.boardId} cards={list.cards} setTriggerBoard={setTriggerBoard}/>
                         {provided.placeholder}
                       </div>
                     )}
