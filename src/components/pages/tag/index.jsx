@@ -84,6 +84,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/* 공유보드 화면 컴포넌트 */
 function Tag({dispatch, lists, boardTitle, boardId}) {
   const classes = useStyles();
   const history = useHistory();
@@ -93,10 +94,14 @@ function Tag({dispatch, lists, boardTitle, boardId}) {
     boardTitle: '',
     boardId: ''
   });
+
+  /* 보드정보 리프레시를 위해 사용하는 상태 변수 */
   const [triggerBoard, setTriggerBoard] = useState(true);
 
+  /* redux로 관리되는 상태 값 */
   const storeState = useSelector(state => state);
 
+  /* lists나 triggerBoard에 이벤트 발생 시 호출 */
   useEffect(() => {
     if (triggerBoard) {
       onGettingBoard();
@@ -104,6 +109,7 @@ function Tag({dispatch, lists, boardTitle, boardId}) {
     }
   }, [lists, triggerBoard]);
 
+  /* tagBoard 상태에 대한 이벤트 발생 시 호출 */
   useEffect(() => {
     onSettingBoard();
   }, [tagBoard]);
@@ -111,16 +117,23 @@ function Tag({dispatch, lists, boardTitle, boardId}) {
   const [showListAdder, setShowListAdder] = useState(false);
   const [newListTitle, setNewListTitle] = useState('');
 
+  /* 드래그앤드랍으로 화면 안에서 컴포넌트를 이동시켰을 때 호출되는 함수 */
   const handleDragEnd = ({draggableId, source, destination, type}) => {
+
+    /* 타겟이 없을 경우 종료 */
     if (!destination) {
       return;
     }
 
+    /* 위치가 바뀌지 않았을 경우 종료 */
     if (destination.droppableId === source.droppableId && destination.index === source.index) {
       return;
     }
 
+    /* 리스트 이동인지 카드에 대한 이동인지 체크 */
     if (type === 'COLUMN') {
+
+      /* 리스트 위치 이동에 대한 nodejs express API 호출 */
       dispatch(
         reorderBoard({
           listId: draggableId,
@@ -133,6 +146,7 @@ function Tag({dispatch, lists, boardTitle, boardId}) {
       });
       return;
     } else {
+      /* 카드 위치 이동에 대한 nodejs express API 호출 */
       dispatch(
         reorderList({
           cardId: draggableId,
@@ -147,6 +161,7 @@ function Tag({dispatch, lists, boardTitle, boardId}) {
       });
     }
 
+    /* 상태 값 갱신 */
     console.log('state lists', lists);
     const boardData = storeState.boardsById['-ukBHjV23H'];
     const boardTitle = boardData.title;
@@ -172,6 +187,7 @@ function Tag({dispatch, lists, boardTitle, boardId}) {
     setTriggerBoard(true);
   };
 
+  /* 새로운 리스트 추가 비동기 함수 */
   const onAddList = async () => {
     await dispatch(
       addList({
@@ -185,12 +201,14 @@ function Tag({dispatch, lists, boardTitle, boardId}) {
     });
   };
 
+  /* 보드 정보를 세팅하기 위한 비동기 함수 */
   const onSettingBoard = async () => {
     await dispatch(
       setBoard(tagBoard.lists, tagBoard.boardTitle, tagBoard.boardId, tagBoard.cards)
     );
   }
 
+  /* 보드 정보를 가져오기 위한 함수 */
   const onGettingBoard = async () => {
     /*await dispatch(
       getBoard()
@@ -257,6 +275,7 @@ function Tag({dispatch, lists, boardTitle, boardId}) {
   );
 }
 
+/* redux 상태를 컴포넌트로 전달하기 위한 함수 */
 const mapStateToProps = (state, props) => {
   if (state.boardsById['-ukBHjV23H']) {
     const board = state.boardsById['-ukBHjV23H'];
@@ -269,4 +288,5 @@ const mapStateToProps = (state, props) => {
   return {};
 };
 
+/* connect와 위에 정의한 mapStateToProps를 통해 리덕스 상태를 컴포넌트에 연결 */
 export default connect(mapStateToProps)(Tag);

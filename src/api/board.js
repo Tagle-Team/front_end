@@ -1,20 +1,6 @@
 import client from './client';
 
-export const addBoard = ({ boardTitle }) => (dispatch) => {
-  try {
-    return client.post('/boards/board', {
-      boardTitle
-    }).then(({ data }) => {
-      dispatch({
-        type: 'ADD_BOARD',
-        payload: {boardTitle, boardId: data.boardId}
-      });
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
+/* 보드 정보 삭제에 대한 axios 요청 함수 (API 호출) */
 export const deleteBoard = ({ boardId }) => (dispatch) => {
   try {
     return client.delete('/boards/board', {
@@ -34,6 +20,7 @@ export const deleteBoard = ({ boardId }) => (dispatch) => {
   }
 };
 
+/* 리스트 위치 이동에 대한 axios 요청 함수 (API 호출) */
 export const reorderBoard = ({ listId, sourceId, sourceIndex, destinationIndex }) => (dispatch) => {
   try {
     return client.put('/boards/reorder-board', {
@@ -56,20 +43,7 @@ export const reorderBoard = ({ listId, sourceId, sourceIndex, destinationIndex }
   }
 };
 
-export const generateExampleBoard = () => (dispatch) => {
-  try {
-    return client.post('/boards/example').then(({data}) => {
-      const {boardTitle, boardId, lists, cards} = data;
-      dispatch({
-        type: 'GENERATE_EXAMPLE_BOARD',
-        payload: {boardTitle, boardId, lists, cards}
-      });
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
+/* 보드 값 설정에 대한 axios 요청 함수 (API 호출) */
 export const setBoard = (lists, boardTitle, boardId, cards) => (dispatch) => {
   return dispatch({
     type: 'SET_BOARD',
@@ -77,6 +51,7 @@ export const setBoard = (lists, boardTitle, boardId, cards) => (dispatch) => {
   });
 }
 
+/* 보드 값을 가져오기 위한 axios 요청 함수 (API 호출) */
 export const getBoard = () => {
   try {
     return client.get('/boards/board');

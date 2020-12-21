@@ -80,6 +80,7 @@ const ButtonWrapper = styled.div`
   align-items: center;
 `;
 
+/* 보드 안에서 리스트 하나를 나타내는 컴포넌트 */
 const List = ({dispatch, boardId, cards, list, setTriggerBoard}) => {
   const [newCardFormIsOpen, setNewCardFormIsOpen] = useState(false);
   const [isListTitleInEdit, setIsListTitleInEdit] = useState(false);
@@ -89,18 +90,22 @@ const List = ({dispatch, boardId, cards, list, setTriggerBoard}) => {
   const [newListTitle, setNewListTitle] = useState('');
   const [tempCardTitle, setTempCardTitle] = useState('');
 
+  /* 리스트 추가 시 토글하여 리스트 타이틀을 추가할 수 있도록 상태 값 반전 */
   const toggleCardComposer = () => setNewCardFormIsOpen(!newCardFormIsOpen);
 
+  /* 추가하려는 리스트 타이틀의 상태 값이 바뀔 때 상태 값도 함께 변경 */
   const handleCardComposerChange = (event) => {
     setNewCardTitle(event.target.value);
   };
 
+  /* 엔터키 입력 시 리스트 데이터 추가 진행할 수 있도록 콜백 */
   const handleKeyDown = (event, callback) => {
     if (event.keyCode === 13) {
       callback(event);
     }
   };
 
+  /* 카드 등록 핸들러 */
   const handleSubmitCard = (event) => {
     event.preventDefault();
     setNewCardFormIsOpen(false);
@@ -108,20 +113,24 @@ const List = ({dispatch, boardId, cards, list, setTriggerBoard}) => {
     onSubmitCard();
   };
 
+  /* card title을 수정할 수 있도록 하는 함수 */
   const openCardEditor = (event, card) => {
     event.preventDefault();
     setCardInEdit(card._id);
     setTempCardTitle(card.title);
   };
 
+  /* 카드 수정 핸들러 */
   const handleCardEditorChange = (event) => {
     setTempCardTitle(event.target.value);
   };
 
+  /* 리스트 타이틀 수정 핸들러 */
   const handleListTitleEditorChange = (event) => {
     setNewListTitle(event.target.value);
   };
 
+  /* 카드 수정 핸들러 */
   const handleCardEdit = async (e) => {
     e.preventDefault();
     if (tempCardTitle.length < 1) {
@@ -131,16 +140,19 @@ const List = ({dispatch, boardId, cards, list, setTriggerBoard}) => {
     }
   };
 
+  /* 카드 삭제 핸들러 */
   const handleDeleteCard = (event, cardId) => {
     event.preventDefault();
     onDeleteCard(cardId);
   };
 
+  /* 타이틀 에디팅 할 수 있도록 하는 상태 설정 함수 */
   const openTitleEditor = () => {
     setIsListTitleInEdit(true);
     setNewListTitle(list.title);
   };
 
+  /* 리스트 타이틀 저장 핸들러 */
   const handleSubmitListTitle = () => {
     if (newListTitle.length < 1) {
       setIsListTitleInEdit(false);
@@ -149,11 +161,13 @@ const List = ({dispatch, boardId, cards, list, setTriggerBoard}) => {
     onEditListTitle(newListTitle.trim(), list._id, boardId);
   };
 
+  /* 리스트 삭제 핸들러 */
   const handleDeleteListButtonClick = (event) => {
     event.preventDefault();
     onDeleteList(list.cards, list._id, boardId);
   };
 
+  /* 카드 저장 이벤트 */
   const onSubmitCard = async () => {
     setIsLoading(true);
     await dispatch(addCard({cardTitle: newCardTitle, listId: list._id, boardId})).then(() => {
@@ -164,6 +178,7 @@ const List = ({dispatch, boardId, cards, list, setTriggerBoard}) => {
     });
   };
 
+  /* 카드 수정 이벤트 */
   const onEditCard = async () => {
     const isEditObj = (e) => (e._id === cardInEdit);
     await dispatch(
@@ -181,6 +196,7 @@ const List = ({dispatch, boardId, cards, list, setTriggerBoard}) => {
     });
   };
 
+  /* 카드 삭제 이벤트 */
   const onDeleteCard = (cardId) => {
     dispatch(deleteCard({cardId, listId: list._id, boardId}))
       .then(() => {
@@ -188,6 +204,7 @@ const List = ({dispatch, boardId, cards, list, setTriggerBoard}) => {
       });
   };
 
+  /* 리스트 타이틀 편집 이벤트 */
   const onEditListTitle = async (listTitle, listId, boardId) => {
     setIsListTitleInEdit(true);
     await dispatch(editListTitle({listTitle, listId, boardId})).then(() => {
@@ -198,6 +215,7 @@ const List = ({dispatch, boardId, cards, list, setTriggerBoard}) => {
     });
   };
 
+  /* 리스트 삭제 이벤트 */
   const onDeleteList = (cards, listId, boardId) => {
     dispatch(deleteList({cards, listId, boardId}))
       .then(() => {

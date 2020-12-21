@@ -1,5 +1,6 @@
 import client from './client';
 
+/* 카드 데이터를 추가하기 위한 axios 요청 함수 (API 호출) */
 export const addCard = ({ cardTitle, listId, boardId }) => (dispatch) => {
   try {
     return client.post('/cards/card', {
@@ -21,6 +22,7 @@ export const addCard = ({ cardTitle, listId, boardId }) => (dispatch) => {
   }
 };
 
+/* 카드 데이터를 수정하기 위한 axios 요청 함수 (API 호출) */
 export const editCardTitle = ({ cardTitle, cardId, cardIndex, listId, boardId }) => (dispatch) => {
   try {
     return client.put('/cards/card', {
@@ -43,6 +45,7 @@ export const editCardTitle = ({ cardTitle, cardId, cardIndex, listId, boardId })
   }
 };
 
+/* 카드 데이터를 삭제하기 위한 axios 요청 함수 (API 호출) */
 export const deleteCard = ({ cardId, listId, boardId }) => (dispatch) => {
   try {
     return client.delete('/cards/card', {
