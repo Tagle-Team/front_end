@@ -61,8 +61,11 @@ function SignIn() {
     signIn({ userId, password }).then((res) => {
       const { data } = res;
       if (data.result) {
+        // 로그인 성공 후 로그인한 user 정보 (userName, email, image ...) 를 로컬 스토리지에 저장
         localStorage.setItem('user', JSON.stringify(data.userInfo));
+        // 로그인한 유저정보 redux에 저장
         dispatch(setUserInfo(data.userInfo));
+        // tag 메인 페이지로 이동
         history.push(routes.tag);
       } else {
         setError({ ...initError, failed: true });
@@ -70,6 +73,10 @@ function SignIn() {
     });
   };
 
+  /**
+   * enter 클릭시 로그인 시도
+   * @param {} event
+   */
   const handleKeyDown = (event) => {
     if (event.keyCode === 13) {
       handleSignInClick();

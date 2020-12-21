@@ -22,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * 회원 정보 수정, 회원가입 에서 프로필 사진 등록, 수정 삭제에 쓰이는 컴포넌트
+ * @param {json} param0
+ */
 function AvatarDropzone({ onChangeAvatar, src }) {
   const classes = useStyles();
   const [avatar, setAvatar] = useState({
@@ -40,12 +44,12 @@ function AvatarDropzone({ onChangeAvatar, src }) {
         reader.onload = (...args) => {
           // Do whatever you want with the file contents
           const binaryStr = reader.result;
-
+          // 파일 업로드 전 미리보기 파일 set
           setAvatar({
             // file,
             preview: binaryStr,
           });
-
+          // 서버에 업로드할 파일 정보 부모 컴포넌트로
           onChangeAvatar(file);
         };
 
@@ -57,10 +61,14 @@ function AvatarDropzone({ onChangeAvatar, src }) {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
+    // 이미지 파일만 선택 되도록
     accept: ['image/*'],
     maxFiles: 1,
   });
 
+  /**
+   * 프로필 사진 삭제시
+   */
   const handleDelAvatar = () => {
     onChangeAvatar(null);
     setAvatar({

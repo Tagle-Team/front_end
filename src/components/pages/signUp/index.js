@@ -84,15 +84,12 @@ function SignUp() {
   };
 
   const handleChange = async (e) => {
-    const {
-      name,
-      value: inputValue,
-      // ,
-    } = e.target;
+    const { name, value: inputValue } = e.target;
     const value = inputValue.trim();
 
     if (name === 'userId') {
       if (value !== '') {
+        //userId 중복 체크
         const res = await confirmId({ id: value });
 
         if (res.data.result === false) {
@@ -109,6 +106,7 @@ function SignUp() {
       }
     }
 
+    // 비밀번호, 비밀번호 확인 일치하는지 체크
     if (name === 'confirmPassword' || name === 'password') {
       const { password, confirmPassword } = getModel();
       const compareVal = name === 'password' ? confirmPassword : password;
@@ -129,17 +127,22 @@ function SignUp() {
     setModel({ name, value });
   };
 
+  /**
+   * 회원가입
+   */
   const handleSignUpClick = () => {
     const { userId, password, userName, email, avatar } = getModel();
 
     signUp({ userId, password, userName, email, avatar }).then((res) => {
       if (res.data) {
+        // 회원가입 성공 시 로그인 페이지로 이동
         history.push(routes.signin);
       }
     });
     history.push(routes.signin);
   };
 
+  // 프로필 사진 변경시 회원가입 model에 프로필 사진 set
   const handleChangeAvatar = (file) => {
     setModel({ name: 'avatar', value: file });
   };

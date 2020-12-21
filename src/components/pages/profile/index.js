@@ -37,6 +37,7 @@ function Profile() {
       [name]: value,
     };
 
+    // 프로필 사진 변경하는 경우
     if (name === 'avatar') {
       newModel.isChangeAvatar = true;
     }
@@ -51,8 +52,10 @@ function Profile() {
         const res = await editUser(model);
 
         if (res && res.data) {
+          // 회원정보 수정 성공 시 변경된 사용자 정보 로컬 스토리지와 redux에 담음
           const { result, userInfo } = res.data;
           if (result) {
+            localStorage.setItem('user', JSON.stringify(userInfo));
             dispatch(setUserInfo(userInfo));
             history.push(routes.tag);
           }
@@ -71,6 +74,7 @@ function Profile() {
 
   return (
     <>
+      {/* 비밀번호 확인 및 유저정보 받아온 경우 사용자 정보 수정 페이지 보여줌 */}
       {approval && userInfo ? (
         <UserForm
           title="Profile"

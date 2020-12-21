@@ -5,6 +5,7 @@ import { theme } from './constants/GlobalUITheme';
 
 import routes from 'resources/routes';
 
+import Root from 'components/pages/root';
 import SignUp from 'components/pages/signUp';
 import SignIn from 'components/pages/signIn';
 import Profile from 'components/pages/profile';
@@ -16,7 +17,7 @@ function App(req, res) {
   return (
     <MuiThemeProvider theme={theme}>
       <Router>
-        <Route exact path={routes.root} render={() => 'root'} />
+        <Route exact path={routes.root} component={Root} />
         <Route
           exact
           path={routes.tag}

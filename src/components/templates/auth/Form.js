@@ -40,9 +40,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * 로그인폼, 비밀번호 확인폼, 회원가입폼, 회원정보 수정 폼 등의 템플릿으로 사용
+ * @param {json} param0
+ */
 function Form({ title, children }) {
   const classes = useStyles();
 
+  /**
+   * form의 input 창에서 enter클릭시 form submit 방지
+   * @param {} event
+   */
   const handleKeyDown = (event) => {
     if (event.keyCode === 13) {
       event.preventDefault();

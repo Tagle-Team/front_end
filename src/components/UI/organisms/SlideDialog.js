@@ -11,6 +11,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+/**
+ * 컨펌창 및 post 등록, 수정 모달창에 쓰인 컴포넌트
+ * @param {json} props
+ */
 export default function SlideDialog({
   open,
   onClose,

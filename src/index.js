@@ -13,17 +13,22 @@ import thunk from 'redux-thunk';
 import rootReducer, { rootSaga } from 'modules';
 import { setUserInfo } from 'modules/user';
 
+// redux middleware 용 saga
 const sagaMiddleware = createSagaMiddleware();
-
+// redux store 생성
 const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk, sagaMiddleware))
 );
 
+/**
+ * 로그인 상태인지 확인
+ */
 function loadUser() {
   try {
     const user = localStorage.getItem('user');
     if (user) {
+      // 로컬스토리지에 로그인한 유저 정보가 있으면 Redux store에 담도록 dispatch
       // fetchUserInfo().then((res) => {
       store.dispatch(setUserInfo(JSON.parse(user)));
       // });
