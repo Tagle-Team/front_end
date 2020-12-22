@@ -87,7 +87,9 @@ export default function MyTag() {
     } else {
       const tag = `#${search}`;
       // 게시글 목록에서 해당 태그 단어 있는
-      const filteredPosts = posts.filter((item) => item.tags.indexOf(tag) >= 0);
+      const filteredPosts = posts.filter(
+        (item) => !!item.tags && item.tags.indexOf(tag) >= 0
+      );
 
       setPosts(filteredPosts);
     }
